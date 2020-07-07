@@ -24,7 +24,6 @@ import org.web3j.crypto.Credentials;
 import org.web3j.ens.EnsResolutionException;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.EthFilter;
-import org.web3j.tuples.generated.Tuple3;
 import org.web3j.tuples.generated.Tuple6;
 import org.web3j.tuples.generated.Tuple9;
 import org.web3j.tx.gas.ContractGasProvider;
@@ -75,7 +74,7 @@ public abstract class IexecHubAbstractService {
     }
 
     /*
-     * We wan't a fresh new instance of IexecHubContract on each call in order to get
+     * We wan't a fresh new instance of IexecHubContract2 on each call in order to get
      * the last ContractGasProvider which depends on the gas price of the network
      */
     public IexecHubContract getHubContract(ContractGasProvider contractGasProvider) {
@@ -159,17 +158,17 @@ public abstract class IexecHubAbstractService {
 
         byte[] chainDealIdBytes = BytesUtils.stringToBytes(chainDealId);
         try {
-            Tuple9<String, String, BigInteger, String, String, BigInteger, String, String, BigInteger> dealPt1 =
-                    iexecHub.viewDealABILegacy_pt1(chainDealIdBytes).send();
-            Tuple6<BigInteger, byte[], String, String, String, String> dealPt2 =
-                    iexecHub.viewDealABILegacy_pt2(chainDealIdBytes).send();
-            Tuple6<BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger> config =
-                    iexecHub.viewConfigABILegacy(chainDealIdBytes).send();
+            System.out.println("-----------");
+            System.out.println(chainDealId);
+            Deal deal =
+                    iexecHub.viewDeal(chainDealIdBytes).send();
 
+            System.out.println("************");
 
-            String appAddress = dealPt1.getValue1();
-            String datasetAddress = dealPt1.getValue4();
-            BigInteger categoryId = config.getValue1();
+            String appAddress = deal.app.pointer;
+            System.out.println(appAddress);
+            String datasetAddress = deal.dataset.pointer;
+            BigInteger categoryId = deal.category;
 
             Optional<ChainApp> chainApp = getChainApp(getAppContract(appAddress));
             if (!chainApp.isPresent()) {
@@ -184,26 +183,26 @@ public abstract class IexecHubAbstractService {
             return Optional.of(ChainDeal.builder()
                     .chainDealId(chainDealId)
                     .chainApp(chainApp.get())
-                    .dappOwner(dealPt1.getValue2())
-                    .dappPrice(dealPt1.getValue3())
+                    .dappOwner(deal.app.owner)
+                    .dappPrice(deal.app.price)
                     .chainDataset(chainDataset.orElse(null))
-                    .dataOwner(dealPt1.getValue5())
-                    .dataPrice(dealPt1.getValue6())
-                    .poolPointer(dealPt1.getValue7())
-                    .poolOwner(dealPt1.getValue8())
-                    .poolPrice(dealPt1.getValue9())
-                    .trust(dealPt2.getValue1())
-                    .tag(BytesUtils.bytesToString(dealPt2.getValue2()))
-                    .requester(dealPt2.getValue3())
-                    .beneficiary(dealPt2.getValue4())
-                    .callback(dealPt2.getValue5())
-                    .params(stringToDealParams(dealPt2.getValue6()))
+                    .dataOwner(deal.dataset.owner)
+                    .dataPrice(deal.dataset.price)
+                    .poolPointer(deal.workerpool.pointer)
+                    .poolOwner(deal.workerpool.owner)
+                    .poolPrice(deal.workerpool.price)
+                    .trust(deal.trust)
+                    .tag(BytesUtils.bytesToString(deal.tag))
+                    .requester(deal.requester)
+                    .beneficiary(deal.beneficiary)
+                    .callback(deal.callback)
+                    .params(stringToDealParams(deal.params))
                     .chainCategory(chainCategory.get())
-                    .startTime(config.getValue2())
-                    .botFirst(config.getValue3())
-                    .botSize(config.getValue4())
-                    .workerStake(config.getValue5())
-                    .schedulerRewardRatio(config.getValue6())
+                    .startTime(deal.startTime)
+                    .botFirst(deal.botFirst)
+                    .botSize(deal.botSize)
+                    .workerStake(deal.workerStake)
+                    .schedulerRewardRatio(deal.schedulerRewardRatio)
                     .build());
         } catch (Exception e) {
             log.error("Failed to get ChainDeal [chainDealId:{}]", chainDealId);
@@ -213,7 +212,7 @@ public abstract class IexecHubAbstractService {
 
     public Optional<ChainTask> getChainTask(String chainTaskId) {
         try {
-            return Optional.of(ChainTask.tuple2ChainTask(getHubContract().viewTaskABILegacy(BytesUtils.stringToBytes(chainTaskId)).send()));
+            return Optional.of(ChainTask.toChainTask(getHubContract().viewTask(BytesUtils.stringToBytes(chainTaskId)).send()));
         } catch (Exception e) {
             log.error("Failed to get ChainTask [chainTaskId:{}]", chainTaskId);
         }
@@ -222,7 +221,7 @@ public abstract class IexecHubAbstractService {
 
     public Optional<ChainAccount> getChainAccount(String walletAddress) {
         try {
-            return Optional.of(ChainAccount.tuple2Account(getHubContract(new DefaultGasProvider()).viewAccountABILegacy(walletAddress).send()));
+            return Optional.of(ChainAccount.toAccount(getHubContract(new DefaultGasProvider()).viewAccount(walletAddress).send()));
         } catch (Exception e) {
             log.info("Failed to get ChainAccount");
         }
@@ -231,8 +230,8 @@ public abstract class IexecHubAbstractService {
 
     public Optional<ChainContribution> getChainContribution(String chainTaskId, String workerAddress) {
         try {
-            return Optional.of(ChainContribution.tuple2Contribution(
-                    getHubContract().viewContributionABILegacy(BytesUtils.stringToBytes(chainTaskId), workerAddress).send()));
+            return Optional.of(ChainContribution.toContribution(
+                    getHubContract().viewContribution(BytesUtils.stringToBytes(chainTaskId), workerAddress).send()));
         } catch (Exception e) {
             log.error("Failed to get ChainContribution [chainTaskId:{}, workerAddress:{}]", chainTaskId, workerAddress);
         }
@@ -241,12 +240,7 @@ public abstract class IexecHubAbstractService {
 
     public Optional<ChainCategory> getChainCategory(long id) {
         try {
-            Tuple3<String, String, BigInteger> category = getHubContract().viewCategoryABILegacy(BigInteger.valueOf(id)).send();
-            return Optional.of(ChainCategory.tuple2ChainCategory(id,
-                    category.getValue1(),
-                    category.getValue2(),
-                    category.getValue3()
-            ));
+            return Optional.of(ChainCategory.toChainCategory(id, getHubContract().viewCategory(BigInteger.valueOf(id)).send()));
         } catch (Exception e) {
             log.error("Failed to get ChainCategory [id:{}]", id);
         }

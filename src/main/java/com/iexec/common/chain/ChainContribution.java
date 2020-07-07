@@ -1,8 +1,8 @@
 package com.iexec.common.chain;
 
+import com.iexec.common.contract.generated.IexecHubContract;
 import com.iexec.common.utils.BytesUtils;
 import lombok.*;
-import org.web3j.tuples.generated.Tuple4;
 
 import java.math.BigInteger;
 
@@ -25,12 +25,12 @@ public class ChainContribution {
         this.setEnclaveChallenge(enclaveChallenge);
     }
 
-    public static ChainContribution tuple2Contribution(Tuple4<BigInteger, byte[], byte[], String> contribution) {
+    public static ChainContribution toContribution(IexecHubContract.Contribution contribution) {
         if (contribution != null) {
-            return new ChainContribution(contribution.getValue1(),
-                    contribution.getValue2(),
-                    contribution.getValue3(),
-                    contribution.getValue4());
+            return new ChainContribution(contribution.status,
+                    contribution.resultHash,
+                    contribution.resultSeal,
+                    contribution.enclaveChallenge);
         }
         return null;
     }

@@ -1,10 +1,10 @@
 package com.iexec.common.chain;
 
+import com.iexec.common.contract.generated.IexecHubContract;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.web3j.tuples.generated.Tuple2;
 
 import java.math.BigInteger;
 
@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @Builder
 public class ChainAccount {
 
-    private long deposit;
+    private long deposit;//TODO Rename deposit to stake
     private long locked;
 
     public ChainAccount(BigInteger deposit, BigInteger locked) {
@@ -22,9 +22,9 @@ public class ChainAccount {
         this.setLocked(locked.longValue());
     }
 
-    public static ChainAccount tuple2Account(Tuple2<BigInteger, BigInteger> account) {
+    public static ChainAccount toAccount(IexecHubContract.Account account) {
         if (account != null) {
-            return new ChainAccount(account.getValue1(), account.getValue2());
+            return new ChainAccount(account.stake, account.locked);
         }
         return null;
     }

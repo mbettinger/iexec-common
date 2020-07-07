@@ -3,6 +3,8 @@ package com.iexec.common.chain;
 import com.iexec.common.utils.BytesUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.util.Arrays;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.DynamicArray;
 import org.web3j.crypto.Hash;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.utils.Convert;
@@ -10,6 +12,8 @@ import org.web3j.utils.Numeric;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class ChainUtils {
@@ -61,6 +65,20 @@ public class ChainUtils {
         }
 
         return builder.build();
+    }
+
+    public static DynamicArray<Address> fromListString2DynamicArrayAddress(List<String> contributors) {
+        return new DynamicArray<Address>(
+                Address.class,
+                org.web3j.abi.Utils.typeMap(contributors, Address.class));
+    }
+
+    public static List<String> fromListAddress2ListString(List<Address> addresses) {
+        List<String> strings = new ArrayList<>();
+        for (Address address: addresses){
+            strings.add(address.getValue());
+        }
+        return strings;
     }
 
 }

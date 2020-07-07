@@ -1,5 +1,6 @@
 package com.iexec.common.chain;
 
+import com.iexec.common.contract.generated.IexecHubContract;
 import lombok.*;
 
 import java.math.BigInteger;
@@ -17,12 +18,12 @@ public class ChainCategory {
     private String description;
     private long maxExecutionTime;
 
-    public static ChainCategory tuple2ChainCategory(long id, String name, String description, BigInteger maxTime) {
+    public static ChainCategory toChainCategory(long id, IexecHubContract.Category category) {
         return ChainCategory.builder()
                 .id(id)
-                .name(name)
-                .description(description)
-                .maxExecutionTime(maxTime.longValue() * 1000)
+                .name(category.name)
+                .description(category.description)
+                .maxExecutionTime(category.workClockTimeRef.longValue() * 1000)
                 .build();
     }
 }

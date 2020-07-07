@@ -1,5 +1,6 @@
 package com.iexec.common.chain;
 
+import com.iexec.common.contract.generated.IexecHubContract;
 import com.iexec.common.utils.BytesUtils;
 import lombok.*;
 import org.web3j.tuples.generated.Tuple12;
@@ -56,20 +57,20 @@ public class ChainTask {
 
     }
 
-    public static ChainTask tuple2ChainTask(Tuple12<BigInteger, byte[], BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, byte[], BigInteger, BigInteger, List<String>, byte[]> chainTask) {
+    public static ChainTask toChainTask(IexecHubContract.Task chainTask) {
         if (chainTask != null) {
-            return new ChainTask(chainTask.getValue1(),
-                    chainTask.getValue2(),
-                    chainTask.getValue3(),
-                    chainTask.getValue4(),
-                    chainTask.getValue5(),
-                    chainTask.getValue6(),
-                    chainTask.getValue7(),
-                    chainTask.getValue8(),
-                    chainTask.getValue9(),
-                    chainTask.getValue10(),
-                    chainTask.getValue11(),
-                    chainTask.getValue12());
+            return new ChainTask(chainTask.status,
+                    chainTask.dealid,
+                    chainTask.idx,
+                    chainTask.timeref,
+                    chainTask.contributionDeadline,
+                    chainTask.revealDeadline,
+                    chainTask.finalDeadline,
+                    chainTask.consensusValue,
+                    chainTask.revealCounter,
+                    chainTask.winnerCounter,
+                    chainTask.contributors,
+                    chainTask.results);
         }
         return null;
     }
