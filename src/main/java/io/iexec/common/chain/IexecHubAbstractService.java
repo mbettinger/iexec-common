@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
-import com.iexec.common.contract.generated.*;
+import io.iexec.common.contract.generated.*;
 import io.iexec.common.contract.generated.Dataset;
 import io.iexec.common.contract.generated.IexecHubContract;
 import io.iexec.common.dapp.DappType;
