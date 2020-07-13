@@ -17,7 +17,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './gradlew build --no-daemon'
+                withCredentials([string(credentialsId: 'JAR_SIGNING_GPG_KEY_PASSWORD', variable: 'SIGNING_PASSWORD')]){
+                sh './gradlew build -Psigning.password=$SIGNING_PASSWORD --no-daemon'
+                }
             }
         }
 
@@ -29,8 +31,9 @@ pipeline {
                 }
             }
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexus', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASSWORD']]) {
-                    sh './gradlew uploadArchives -PnexusUser=$NEXUS_USER -PnexusPassword=$NEXUS_PASSWORD --no-daemon'
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'ossrh-credentials',
+                                  usernameVariable: 'OSSRH_USER', passwordVariable: 'OSSRH_PASSWORD']]) {
+                    sh './gradlew uploadArchives -PossrhUsername=$OSSRH_USER -PossrhPassword=$OSSRH_PASSWORD --no-daemon'
                 }
                 archiveArtifacts artifacts: 'build/libs/*.jar'
             }

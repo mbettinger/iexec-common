@@ -16,9 +16,10 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
+apply plugin: 'signing'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-group = 'com.iexec.common'
+group = 'io.iexec.common'
 sourceCompatibility = 11
 targetCompatibility = 11
 
@@ -46,7 +47,7 @@ dependencies {
 
     // web3j dependency
     compile "org.web3j:core:$web3jVersion"
-    
+
     // apache commons.lang3
     compile "org.apache.commons:commons-lang3:3.9"
 
@@ -94,20 +95,80 @@ def isDevelopBranch = gitBranch == "develop"
 def canUploadArchives = isMasterBranch || isDevelopBranch
 def isSnapshotVersion = project.version.contains("SNAPSHOT")
 
-project.ext.getNexusMaven = {
-    def nexusMavenBase = "https://nexus.iex.ec/repository"
-    if (isSnapshotVersion) {
-        return nexusMavenBase + "/maven-snapshots/"
-    } else {
-        return nexusMavenBase + "/maven-releases/"
-    }
+task javadocJar(type: Jar) {
+    archiveClassifier.set("javadoc")
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    //required { !isSnapshotVersion } //TODO check required
+    sign configurations.archives
 }
 
 uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
-        repository(url: getNexusMaven()) {
-            authentication(userName: nexusUser, password: nexusPassword)
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
+
+        snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
+
+        pom.project {
+            name 'iExec Common'
+            groupId project.group
+            artifactId project.name
+            version project.version
+            packaging 'jar'
+
+            description 'This iexec-common library embeds iExec objects required for the iExec ' +
+                    'offchain-protocol & enables native off-chain/on-chain communication with iExec Smart-Contracts. ' +
+                    'This library is at least required for iexec-core, iexec-worker, iexec-worker-post, iexec-sms, ' +
+                    'iexec-result and more.'
+            url 'https://github.com/iExecBlockchainComputing/iexec-common'
+
+            scm {
+                connection 'scm:git:git://github.com/iExecBlockchainComputing/iexec-common.git'
+                developerConnection 'scm:git:ssh://github.com:iExecBlockchainComputing/iexec-common.git'
+                url 'https://github.com/iExecBlockchainComputing/iexec-common/tree/master'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+
+            developers {
+                developer {
+                    name 'Jérémy James Toussaint'
+                    email 'jeremy.toussaint@iex.ec'
+                    url 'https://github.com/jeremyjams'
+                    organization 'iExec'
+                    organizationUrl 'https://iex.ec'
+                }
+                developer {
+                    name 'Zied Guesmi'
+                    email 'zied.guesmi@iex.ec'
+                    url 'https://github.com/zguesmi'
+                    organization 'iExec'
+                    organizationUrl 'https://iex.ec'
+                }
+            }
         }
     }
 }
