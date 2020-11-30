@@ -223,7 +223,7 @@ public abstract class IexecHubAbstractService {
                     .schedulerRewardRatio(deal.schedulerRewardRatio)
                     .build());
         } catch (Exception e) {
-            log.error("Failed to get ChainDeal [chainDealId:{}]", chainDealId);
+            log.error("Failed to get ChainDeal [chainDealId:{}]", chainDealId, e);
         }
         return Optional.empty();
     }

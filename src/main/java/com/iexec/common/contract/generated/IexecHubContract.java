@@ -1,33 +1,30 @@
-/*
- * Copyright 2020 IEXEC BLOCKCHAIN TECH
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.iexec.common.contract.generated;
 
+import com.iexec.common.chain.ChainUtils;
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.TypeReference;
-import org.web3j.abi.datatypes.*;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Bool;
+import org.web3j.abi.datatypes.DynamicArray;
+import org.web3j.abi.datatypes.DynamicBytes;
+import org.web3j.abi.datatypes.DynamicStruct;
+import org.web3j.abi.datatypes.Event;
+import org.web3j.abi.datatypes.StaticStruct;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
-import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.RemoteFunctionCall;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.BaseEventResponse;
@@ -37,24 +34,18 @@ import org.web3j.tx.Contract;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
 
-import java.math.BigInteger;
-import java.util.*;
-
-import static com.iexec.common.chain.ChainUtils.fromListAddress2ListString;
-import static com.iexec.common.chain.ChainUtils.fromListString2DynamicArrayAddress;
-
 /**
  * <p>Auto generated code.
  * <p><strong>Do not modify!</strong>
  * <p>Please use the <a href="https://docs.web3j.io/command_line.html">web3j command line tools</a>,
- * or the org.web3j.codegen.SolidityFunctionWrapperGenerator in the
+ * or the org.web3j.codegen.SolidityFunctionWrapperGenerator in the 
  * <a href="https://github.com/web3j/web3j/tree/master/codegen">codegen module</a> to update.
  *
- * <p>Generated with web3j version 4.6.1.
+ * <p>Generated with web3j version 4.7.0.
  */
 @SuppressWarnings("rawtypes")
 public class IexecHubContract extends Contract {
-    public static final String BINARY = "0x";
+    public static final String BINARY = "Bin file was not provided";
 
     public static final String FUNC_ALLOWANCE = "allowance";
 
@@ -210,195 +201,129 @@ public class IexecHubContract extends Contract {
 
     public static final String FUNC_WORKERPOOLREGISTRY = "workerpoolregistry";
 
-    public static final Event ACCURATECONTRIBUTION_EVENT = new Event("AccurateContribution",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {
-            }, new TypeReference<Bytes32>(true) {
-            }));
+    public static final Event ACCURATECONTRIBUTION_EVENT = new Event("AccurateContribution", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Bytes32>(true) {}));
     ;
 
-    public static final Event APPROVAL_EVENT = new Event("Approval",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {
-            }, new TypeReference<Address>(true) {
-            }, new TypeReference<Uint256>() {
-            }));
+    public static final Event APPROVAL_EVENT = new Event("Approval", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
     ;
 
-    public static final Event BROADCASTAPPORDER_EVENT = new Event("BroadcastAppOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<AppOrder>() {
-            }));
+    public static final Event BROADCASTAPPORDER_EVENT = new Event("BroadcastAppOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<AppOrder>() {}));
     ;
 
-    public static final Event BROADCASTDATASETORDER_EVENT = new Event("BroadcastDatasetOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<DatasetOrder>() {
-            }));
+    public static final Event BROADCASTDATASETORDER_EVENT = new Event("BroadcastDatasetOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<DatasetOrder>() {}));
     ;
 
-    public static final Event BROADCASTREQUESTORDER_EVENT = new Event("BroadcastRequestOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<RequestOrder>() {
-            }));
+    public static final Event BROADCASTREQUESTORDER_EVENT = new Event("BroadcastRequestOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<RequestOrder>() {}));
     ;
 
-    public static final Event BROADCASTWORKERPOOLORDER_EVENT = new Event("BroadcastWorkerpoolOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<WorkerpoolOrder>() {
-            }));
+    public static final Event BROADCASTWORKERPOOLORDER_EVENT = new Event("BroadcastWorkerpoolOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<WorkerpoolOrder>() {}));
     ;
 
-    public static final Event CLOSEDAPPORDER_EVENT = new Event("ClosedAppOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event CLOSEDAPPORDER_EVENT = new Event("ClosedAppOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event CLOSEDDATASETORDER_EVENT = new Event("ClosedDatasetOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event CLOSEDDATASETORDER_EVENT = new Event("ClosedDatasetOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event CLOSEDREQUESTORDER_EVENT = new Event("ClosedRequestOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event CLOSEDREQUESTORDER_EVENT = new Event("ClosedRequestOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event CLOSEDWORKERPOOLORDER_EVENT = new Event("ClosedWorkerpoolOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event CLOSEDWORKERPOOLORDER_EVENT = new Event("ClosedWorkerpoolOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event CREATECATEGORY_EVENT = new Event("CreateCategory",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-            }, new TypeReference<Utf8String>() {
-            }, new TypeReference<Utf8String>() {
-            }, new TypeReference<Uint256>() {
-            }));
+    public static final Event CREATECATEGORY_EVENT = new Event("CreateCategory", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Utf8String>() {}, new TypeReference<Uint256>() {}));
     ;
 
-    public static final Event FAULTYCONTRIBUTION_EVENT = new Event("FaultyContribution",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {
-            }, new TypeReference<Bytes32>(true) {
-            }));
+    public static final Event FAULTYCONTRIBUTION_EVENT = new Event("FaultyContribution", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Bytes32>(true) {}));
     ;
 
-    public static final Event LOCK_EVENT = new Event("Lock",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-            }, new TypeReference<Uint256>() {
-            }));
+    public static final Event LOCK_EVENT = new Event("Lock", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Uint256>() {}));
     ;
 
-    public static final Event ORDERSMATCHED_EVENT = new Event("OrdersMatched",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }, new TypeReference<Bytes32>() {
-            }, new TypeReference<Bytes32>() {
-            }, new TypeReference<Bytes32>() {
-            }, new TypeReference<Bytes32>() {
-            }, new TypeReference<Uint256>() {
-            }));
+    public static final Event ORDERSMATCHED_EVENT = new Event("OrdersMatched", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}, new TypeReference<Bytes32>() {}, new TypeReference<Bytes32>() {}, new TypeReference<Bytes32>() {}, new TypeReference<Bytes32>() {}, new TypeReference<Uint256>() {}));
     ;
 
-    public static final Event OWNERSHIPTRANSFERRED_EVENT = new Event("OwnershipTransferred",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {
-            }, new TypeReference<Address>(true) {
-            }));
+    public static final Event OWNERSHIPTRANSFERRED_EVENT = new Event("OwnershipTransferred", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}));
     ;
 
-    public static final Event REWARD_EVENT = new Event("Reward",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-            }, new TypeReference<Uint256>() {
-            }, new TypeReference<Bytes32>() {
-            }));
+    public static final Event REWARD_EVENT = new Event("Reward", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Uint256>() {}, new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event SCHEDULERNOTICE_EVENT = new Event("SchedulerNotice",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {
-            }, new TypeReference<Bytes32>() {
-            }));
+    public static final Event SCHEDULERNOTICE_EVENT = new Event("SchedulerNotice", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event SEIZE_EVENT = new Event("Seize",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-            }, new TypeReference<Uint256>() {
-            }, new TypeReference<Bytes32>() {
-            }));
+    public static final Event SEIZE_EVENT = new Event("Seize", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Uint256>() {}, new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event SIGNEDAPPORDER_EVENT = new Event("SignedAppOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event SIGNEDAPPORDER_EVENT = new Event("SignedAppOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event SIGNEDDATASETORDER_EVENT = new Event("SignedDatasetOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event SIGNEDDATASETORDER_EVENT = new Event("SignedDatasetOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event SIGNEDREQUESTORDER_EVENT = new Event("SignedRequestOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event SIGNEDREQUESTORDER_EVENT = new Event("SignedRequestOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event SIGNEDWORKERPOOLORDER_EVENT = new Event("SignedWorkerpoolOrder",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-            }));
+    public static final Event SIGNEDWORKERPOOLORDER_EVENT = new Event("SignedWorkerpoolOrder", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event TASKCLAIMED_EVENT = new Event("TaskClaimed",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {
-            }));
+    public static final Event TASKCLAIMED_EVENT = new Event("TaskClaimed", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}));
     ;
 
-    public static final Event TASKCONSENSUS_EVENT = new Event("TaskConsensus",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {
-            }, new TypeReference<Bytes32>() {
-            }));
+    public static final Event TASKCONSENSUS_EVENT = new Event("TaskConsensus", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event TASKCONTRIBUTE_EVENT = new Event("TaskContribute",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {
-            }, new TypeReference<Address>(true) {
-            }, new TypeReference<Bytes32>() {
-            }));
+    public static final Event TASKCONTRIBUTE_EVENT = new Event("TaskContribute", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event TASKFINALIZE_EVENT = new Event("TaskFinalize",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {
-            }, new TypeReference<DynamicBytes>() {
-            }));
+    public static final Event TASKFINALIZE_EVENT = new Event("TaskFinalize", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<DynamicBytes>() {}));
     ;
 
-    public static final Event TASKINITIALIZE_EVENT = new Event("TaskInitialize",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {
-            }, new TypeReference<Address>(true) {
-            }));
+    public static final Event TASKINITIALIZE_EVENT = new Event("TaskInitialize", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Address>(true) {}));
     ;
 
-    public static final Event TASKREOPEN_EVENT = new Event("TaskReopen",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {
-            }));
+    public static final Event TASKREOPEN_EVENT = new Event("TaskReopen", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}));
     ;
 
-    public static final Event TASKREVEAL_EVENT = new Event("TaskReveal",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {
-            }, new TypeReference<Address>(true) {
-            }, new TypeReference<Bytes32>() {
-            }));
+    public static final Event TASKREVEAL_EVENT = new Event("TaskReveal", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Bytes32>() {}));
     ;
 
-    public static final Event TRANSFER_EVENT = new Event("Transfer",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {
-            }, new TypeReference<Address>(true) {
-            }, new TypeReference<Uint256>() {
-            }));
+    public static final Event TRANSFER_EVENT = new Event("Transfer", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Uint256>() {}));
     ;
 
-    public static final Event UNLOCK_EVENT = new Event("Unlock",
-            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-            }, new TypeReference<Uint256>() {
-            }));
+    public static final Event UNLOCK_EVENT = new Event("Unlock", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Uint256>() {}));
     ;
-
-    protected static final HashMap<String, String> _addresses;
-
-    static {
-        _addresses = new HashMap<String, String>();
-    }
 
     @Deprecated
     protected IexecHubContract(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
@@ -416,46 +341,6 @@ public class IexecHubContract extends Contract {
 
     protected IexecHubContract(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
-    }
-
-    @Deprecated
-    public static IexecHubContract load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return new IexecHubContract(contractAddress, web3j, credentials, gasPrice, gasLimit);
-    }
-
-    @Deprecated
-    public static IexecHubContract load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return new IexecHubContract(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
-    }
-
-    public static IexecHubContract load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return new IexecHubContract(contractAddress, web3j, credentials, contractGasProvider);
-    }
-
-    public static IexecHubContract load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return new IexecHubContract(contractAddress, web3j, transactionManager, contractGasProvider);
-    }
-
-    public static RemoteCall<IexecHubContract> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
-        return deployRemoteCall(IexecHubContract.class, web3j, credentials, contractGasProvider, BINARY, "");
-    }
-
-    @Deprecated
-    public static RemoteCall<IexecHubContract> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
-        return deployRemoteCall(IexecHubContract.class, web3j, credentials, gasPrice, gasLimit, BINARY, "");
-    }
-
-    public static RemoteCall<IexecHubContract> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
-        return deployRemoteCall(IexecHubContract.class, web3j, transactionManager, contractGasProvider, BINARY, "");
-    }
-
-    @Deprecated
-    public static RemoteCall<IexecHubContract> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
-        return deployRemoteCall(IexecHubContract.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, "");
-    }
-
-    public static String getPreviouslyDeployedAddress(String networkId) {
-        return _addresses.get(networkId);
     }
 
     public List<AccurateContributionEventResponse> getAccurateContributionEvents(TransactionReceipt transactionReceipt) {
@@ -1478,687 +1363,664 @@ public class IexecHubContract extends Contract {
     }
 
     public RemoteFunctionCall<BigInteger> allowance(String param0, String param1) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ALLOWANCE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.Address(param1)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_ALLOWANCE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.Address(160, param1)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<String> appregistry() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_APPREGISTRY,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_APPREGISTRY, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> approve(String param0, BigInteger param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_APPROVE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Uint256(param1)),
+                FUNC_APPROVE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Uint256(param1)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> approveAndCall(String param0, BigInteger param1, byte[] param2) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_APPROVEANDCALL,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Uint256(param1),
-                        new org.web3j.abi.datatypes.DynamicBytes(param2)),
+                FUNC_APPROVEANDCALL, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Uint256(param1), 
+                new org.web3j.abi.datatypes.DynamicBytes(param2)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<BigInteger> balanceOf(String param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_BALANCEOF,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_BALANCEOF, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> broadcastAppOrder(AppOrder param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_BROADCASTAPPORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_BROADCASTAPPORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> broadcastDatasetOrder(DatasetOrder param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_BROADCASTDATASETORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_BROADCASTDATASETORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> broadcastRequestOrder(RequestOrder param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_BROADCASTREQUESTORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_BROADCASTREQUESTORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> broadcastWorkerpoolOrder(WorkerpoolOrder param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_BROADCASTWORKERPOOLORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_BROADCASTWORKERPOOLORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<BigInteger> callbackgas() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CALLBACKGAS,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CALLBACKGAS, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> claim(byte[] param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CLAIM,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)),
+                FUNC_CLAIM, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> claimArray(List<byte[]> param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CLAIMARRAY,
+                FUNC_CLAIMARRAY, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Bytes32>(
                         org.web3j.abi.datatypes.generated.Bytes32.class,
-                        org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Bytes32.class))),
+                        org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Bytes32.class))), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> configure(String param0, String param1, String param2, BigInteger param3, String param4, String param5, String param6, String param7) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CONFIGURE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.Utf8String(param1),
-                        new org.web3j.abi.datatypes.Utf8String(param2),
-                        new org.web3j.abi.datatypes.generated.Uint8(param3),
-                        new org.web3j.abi.datatypes.Address(param4),
-                        new org.web3j.abi.datatypes.Address(param5),
-                        new org.web3j.abi.datatypes.Address(param6),
-                        new org.web3j.abi.datatypes.Address(param7)),
+                FUNC_CONFIGURE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.Utf8String(param1), 
+                new org.web3j.abi.datatypes.Utf8String(param2), 
+                new org.web3j.abi.datatypes.generated.Uint8(param3), 
+                new org.web3j.abi.datatypes.Address(160, param4), 
+                new org.web3j.abi.datatypes.Address(160, param5), 
+                new org.web3j.abi.datatypes.Address(160, param6), 
+                new org.web3j.abi.datatypes.Address(160, param7)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> contribute(byte[] param0, byte[] param1, byte[] param2, String param3, byte[] param4, byte[] param5) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CONTRIBUTE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0),
-                        new org.web3j.abi.datatypes.generated.Bytes32(param1),
-                        new org.web3j.abi.datatypes.generated.Bytes32(param2),
-                        new org.web3j.abi.datatypes.Address(param3),
-                        new org.web3j.abi.datatypes.DynamicBytes(param4),
-                        new org.web3j.abi.datatypes.DynamicBytes(param5)),
+                FUNC_CONTRIBUTE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0), 
+                new org.web3j.abi.datatypes.generated.Bytes32(param1), 
+                new org.web3j.abi.datatypes.generated.Bytes32(param2), 
+                new org.web3j.abi.datatypes.Address(160, param3), 
+                new org.web3j.abi.datatypes.DynamicBytes(param4), 
+                new org.web3j.abi.datatypes.DynamicBytes(param5)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> contributeAndFinalize(byte[] param0, byte[] param1, byte[] param2, byte[] param3, String param4, byte[] param5, byte[] param6) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CONTRIBUTEANDFINALIZE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0),
-                        new org.web3j.abi.datatypes.generated.Bytes32(param1),
-                        new org.web3j.abi.datatypes.DynamicBytes(param2),
-                        new org.web3j.abi.datatypes.DynamicBytes(param3),
-                        new org.web3j.abi.datatypes.Address(param4),
-                        new org.web3j.abi.datatypes.DynamicBytes(param5),
-                        new org.web3j.abi.datatypes.DynamicBytes(param6)),
+                FUNC_CONTRIBUTEANDFINALIZE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0), 
+                new org.web3j.abi.datatypes.generated.Bytes32(param1), 
+                new org.web3j.abi.datatypes.DynamicBytes(param2), 
+                new org.web3j.abi.datatypes.DynamicBytes(param3), 
+                new org.web3j.abi.datatypes.Address(160, param4), 
+                new org.web3j.abi.datatypes.DynamicBytes(param5), 
+                new org.web3j.abi.datatypes.DynamicBytes(param6)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<BigInteger> contribution_deadline_ratio() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CONTRIBUTION_DEADLINE_RATIO,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_CONTRIBUTION_DEADLINE_RATIO, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<BigInteger> countCategory() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_COUNTCATEGORY,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_COUNTCATEGORY, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> createCategory(String param0, String param1, BigInteger param2) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_CREATECATEGORY,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Utf8String(param0),
-                        new org.web3j.abi.datatypes.Utf8String(param1),
-                        new org.web3j.abi.datatypes.generated.Uint256(param2)),
+                FUNC_CREATECATEGORY, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Utf8String(param0), 
+                new org.web3j.abi.datatypes.Utf8String(param1), 
+                new org.web3j.abi.datatypes.generated.Uint256(param2)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<String> datasetregistry() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DATASETREGISTRY,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DATASETREGISTRY, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<BigInteger> decimals() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DECIMALS,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DECIMALS, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> decreaseAllowance(String param0, BigInteger param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_DECREASEALLOWANCE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Uint256(param1)),
+                FUNC_DECREASEALLOWANCE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Uint256(param1)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> deposit(BigInteger param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_DEPOSIT,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)),
+                FUNC_DEPOSIT, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> depositFor(BigInteger param0, String param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_DEPOSITFOR,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0),
-                        new org.web3j.abi.datatypes.Address(param1)),
+                FUNC_DEPOSITFOR, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0), 
+                new org.web3j.abi.datatypes.Address(160, param1)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> depositForArray(List<BigInteger> param0, List<String> param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_DEPOSITFORARRAY,
+                FUNC_DEPOSITFORARRAY, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Uint256>(
-                                org.web3j.abi.datatypes.generated.Uint256.class,
-                                org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Uint256.class)),
-                        new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.Address>(
-                                org.web3j.abi.datatypes.Address.class,
-                                org.web3j.abi.Utils.typeMap(param1, org.web3j.abi.datatypes.Address.class))),
+                        org.web3j.abi.datatypes.generated.Uint256.class,
+                        org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Uint256.class)), 
+                new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.Address>(
+                        org.web3j.abi.datatypes.Address.class,
+                        org.web3j.abi.Utils.typeMap(param1, org.web3j.abi.datatypes.Address.class))), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<EIP712Domain> domain() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DOMAIN,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<EIP712Domain>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DOMAIN, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<EIP712Domain>() {}));
         return executeRemoteCallSingleValueReturn(function, EIP712Domain.class);
     }
 
     public RemoteFunctionCall<byte[]> eip712domain_separator() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_EIP712DOMAIN_SEPARATOR,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_EIP712DOMAIN_SEPARATOR, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>() {}));
         return executeRemoteCallSingleValueReturn(function, byte[].class);
     }
 
     public RemoteFunctionCall<BigInteger> final_deadline_ratio() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_FINAL_DEADLINE_RATIO,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_FINAL_DEADLINE_RATIO, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> finalize(byte[] param0, byte[] param1, byte[] param2) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_FINALIZE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0),
-                        new org.web3j.abi.datatypes.DynamicBytes(param1),
-                        new org.web3j.abi.datatypes.DynamicBytes(param2)),
+                FUNC_FINALIZE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0), 
+                new org.web3j.abi.datatypes.DynamicBytes(param1), 
+                new org.web3j.abi.datatypes.DynamicBytes(param2)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<BigInteger> frozenOf(String param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_FROZENOF,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_FROZENOF, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<BigInteger> groupmember_purpose() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GROUPMEMBER_PURPOSE,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GROUPMEMBER_PURPOSE, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> importScore(String param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_IMPORTSCORE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0)),
+                FUNC_IMPORTSCORE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> increaseAllowance(String param0, BigInteger param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_INCREASEALLOWANCE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Uint256(param1)),
+                FUNC_INCREASEALLOWANCE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Uint256(param1)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> initialize(byte[] param0, BigInteger param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_INITIALIZE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0),
-                        new org.web3j.abi.datatypes.generated.Uint256(param1)),
+                FUNC_INITIALIZE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0), 
+                new org.web3j.abi.datatypes.generated.Uint256(param1)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> initializeAndClaimArray(List<byte[]> param0, List<BigInteger> param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_INITIALIZEANDCLAIMARRAY,
+                FUNC_INITIALIZEANDCLAIMARRAY, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Bytes32>(
-                                org.web3j.abi.datatypes.generated.Bytes32.class,
-                                org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Bytes32.class)),
-                        new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Uint256>(
-                                org.web3j.abi.datatypes.generated.Uint256.class,
-                                org.web3j.abi.Utils.typeMap(param1, org.web3j.abi.datatypes.generated.Uint256.class))),
+                        org.web3j.abi.datatypes.generated.Bytes32.class,
+                        org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Bytes32.class)), 
+                new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Uint256>(
+                        org.web3j.abi.datatypes.generated.Uint256.class,
+                        org.web3j.abi.Utils.typeMap(param1, org.web3j.abi.datatypes.generated.Uint256.class))), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> initializeArray(List<byte[]> param0, List<BigInteger> param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_INITIALIZEARRAY,
+                FUNC_INITIALIZEARRAY, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Bytes32>(
-                                org.web3j.abi.datatypes.generated.Bytes32.class,
-                                org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Bytes32.class)),
-                        new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Uint256>(
-                                org.web3j.abi.datatypes.generated.Uint256.class,
-                                org.web3j.abi.Utils.typeMap(param1, org.web3j.abi.datatypes.generated.Uint256.class))),
+                        org.web3j.abi.datatypes.generated.Bytes32.class,
+                        org.web3j.abi.Utils.typeMap(param0, org.web3j.abi.datatypes.generated.Bytes32.class)), 
+                new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.generated.Uint256>(
+                        org.web3j.abi.datatypes.generated.Uint256.class,
+                        org.web3j.abi.Utils.typeMap(param1, org.web3j.abi.datatypes.generated.Uint256.class))), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<String> kitty_address() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_KITTY_ADDRESS,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_KITTY_ADDRESS, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<BigInteger> kitty_min() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_KITTY_MIN,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_KITTY_MIN, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<BigInteger> kitty_ratio() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_KITTY_RATIO,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_KITTY_RATIO, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> manageAppOrder(AppOrderOperation param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_MANAGEAPPORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_MANAGEAPPORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> manageDatasetOrder(DatasetOrderOperation param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_MANAGEDATASETORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_MANAGEDATASETORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> manageRequestOrder(RequestOrderOperation param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_MANAGEREQUESTORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_MANAGEREQUESTORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> manageWorkerpoolOrder(WorkerpoolOrderOperation param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_MANAGEWORKERPOOLORDER,
-                Arrays.<Type>asList(param0),
+                FUNC_MANAGEWORKERPOOLORDER, 
+                Arrays.<Type>asList(param0), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> matchOrders(AppOrder param0, DatasetOrder param1, WorkerpoolOrder param2, RequestOrder param3) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_MATCHORDERS,
-                Arrays.<Type>asList(param0,
-                        param1,
-                        param2,
-                        param3),
+                FUNC_MATCHORDERS, 
+                Arrays.<Type>asList(param0, 
+                param1, 
+                param2, 
+                param3), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<String> name() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_NAME,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_NAME, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<String> owner() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_OWNER,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_OWNER, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> receiveApproval(String param0, BigInteger param1, String param2, byte[] param3) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_RECEIVEAPPROVAL,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Uint256(param1),
-                        new org.web3j.abi.datatypes.Address(param2),
-                        new org.web3j.abi.datatypes.DynamicBytes(param3)),
+                FUNC_RECEIVEAPPROVAL, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Uint256(param1), 
+                new org.web3j.abi.datatypes.Address(160, param2), 
+                new org.web3j.abi.datatypes.DynamicBytes(param3)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> recover() {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_RECOVER,
-                Arrays.<Type>asList(),
+                FUNC_RECOVER, 
+                Arrays.<Type>asList(), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> renounceOwnership() {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_RENOUNCEOWNERSHIP,
-                Arrays.<Type>asList(),
+                FUNC_RENOUNCEOWNERSHIP, 
+                Arrays.<Type>asList(), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> reopen(byte[] param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_REOPEN,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)),
+                FUNC_REOPEN, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<byte[]> resultFor(byte[] param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_RESULTFOR,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<DynamicBytes>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_RESULTFOR, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<DynamicBytes>() {}));
         return executeRemoteCallSingleValueReturn(function, byte[].class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> reveal(byte[] param0, byte[] param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_REVEAL,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0),
-                        new org.web3j.abi.datatypes.generated.Bytes32(param1)),
+                FUNC_REVEAL, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0), 
+                new org.web3j.abi.datatypes.generated.Bytes32(param1)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<BigInteger> reveal_deadline_ratio() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_REVEAL_DEADLINE_RATIO,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_REVEAL_DEADLINE_RATIO, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> setCallbackGas(BigInteger param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_SETCALLBACKGAS,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)),
+                FUNC_SETCALLBACKGAS, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> setName(String ens, String name) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_SETNAME,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(ens),
-                        new org.web3j.abi.datatypes.Utf8String(name)),
+                FUNC_SETNAME, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, ens), 
+                new org.web3j.abi.datatypes.Utf8String(name)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> setTeeBroker(String param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_SETTEEBROKER,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0)),
+                FUNC_SETTEEBROKER, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<String> symbol() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_SYMBOL,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_SYMBOL, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<String> teebroker() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TEEBROKER,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TEEBROKER, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<String> token() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TOKEN,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TOKEN, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<BigInteger> totalSupply() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TOTALSUPPLY,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_TOTALSUPPLY, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> transfer(String param0, BigInteger param1) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_TRANSFER,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Uint256(param1)),
+                FUNC_TRANSFER, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Uint256(param1)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> transferFrom(String param0, String param1, BigInteger param2) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_TRANSFERFROM,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.Address(param1),
-                        new org.web3j.abi.datatypes.generated.Uint256(param2)),
+                FUNC_TRANSFERFROM, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.Address(160, param1), 
+                new org.web3j.abi.datatypes.generated.Uint256(param2)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> transferOwnership(String param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_TRANSFEROWNERSHIP,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0)),
+                FUNC_TRANSFEROWNERSHIP, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<TransactionReceipt> updateDomainSeparator() {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_UPDATEDOMAINSEPARATOR,
-                Arrays.<Type>asList(),
+                FUNC_UPDATEDOMAINSEPARATOR, 
+                Arrays.<Type>asList(), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<Boolean> verifyPresignature(String param0, byte[] param1) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VERIFYPRESIGNATURE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Bytes32(param1)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VERIFYPRESIGNATURE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Bytes32(param1)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     public RemoteFunctionCall<Boolean> verifyPresignatureOrSignature(String param0, byte[] param1, byte[] param2) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VERIFYPRESIGNATUREORSIGNATURE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Bytes32(param1),
-                        new org.web3j.abi.datatypes.DynamicBytes(param2)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VERIFYPRESIGNATUREORSIGNATURE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Bytes32(param1), 
+                new org.web3j.abi.datatypes.DynamicBytes(param2)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     public RemoteFunctionCall<Boolean> verifySignature(String param0, byte[] param1, byte[] param2) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VERIFYSIGNATURE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0),
-                        new org.web3j.abi.datatypes.generated.Bytes32(param1),
-                        new org.web3j.abi.datatypes.DynamicBytes(param2)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VERIFYSIGNATURE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0), 
+                new org.web3j.abi.datatypes.generated.Bytes32(param1), 
+                new org.web3j.abi.datatypes.DynamicBytes(param2)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {}));
         return executeRemoteCallSingleValueReturn(function, Boolean.class);
     }
 
     public RemoteFunctionCall<Account> viewAccount(String param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWACCOUNT,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Account>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWACCOUNT, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Account>() {}));
         return executeRemoteCallSingleValueReturn(function, Account.class);
     }
 
     public RemoteFunctionCall<Category> viewCategory(BigInteger param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWCATEGORY,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Category>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWCATEGORY, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Category>() {}));
         return executeRemoteCallSingleValueReturn(function, Category.class);
     }
 
     public RemoteFunctionCall<BigInteger> viewConsumed(byte[] param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWCONSUMED,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWCONSUMED, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<Contribution> viewContribution(byte[] param0, String param1) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWCONTRIBUTION,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0),
-                        new org.web3j.abi.datatypes.Address(param1)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Contribution>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWCONTRIBUTION, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0), 
+                new org.web3j.abi.datatypes.Address(160, param1)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Contribution>() {}));
         return executeRemoteCallSingleValueReturn(function, Contribution.class);
     }
 
     public RemoteFunctionCall<Deal> viewDeal(byte[] param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWDEAL,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Deal>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWDEAL, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Deal>() {}));
         return executeRemoteCallSingleValueReturn(function, Deal.class);
     }
 
     public RemoteFunctionCall<String> viewPresigned(byte[] param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWPRESIGNED,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWPRESIGNED, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<BigInteger> viewScore(String param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWSCORE,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWSCORE, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<Task> viewTask(byte[] param0) {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWTASK,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Task>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_VIEWTASK, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Bytes32(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Task>() {}));
         return executeRemoteCallSingleValueReturn(function, Task.class);
     }
 
     public RemoteFunctionCall<TransactionReceipt> withdraw(BigInteger param0) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
-                FUNC_WITHDRAW,
-                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)),
+                FUNC_WITHDRAW, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)), 
                 Collections.<TypeReference<?>>emptyList());
         return executeRemoteCallTransaction(function);
     }
 
     public RemoteFunctionCall<BigInteger> workerpool_stake_ratio() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_WORKERPOOL_STAKE_RATIO,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_WORKERPOOL_STAKE_RATIO, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
     public RemoteFunctionCall<String> workerpoolregistry() {
-        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_WORKERPOOLREGISTRY,
-                Arrays.<Type>asList(),
-                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {
-                }));
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_WORKERPOOLREGISTRY, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
-    protected String getStaticDeployedAddress(String networkId) {
-        return _addresses.get(networkId);
+    @Deprecated
+    public static IexecHubContract load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new IexecHubContract(contractAddress, web3j, credentials, gasPrice, gasLimit);
+    }
+
+    @Deprecated
+    public static IexecHubContract load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new IexecHubContract(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    }
+
+    public static IexecHubContract load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return new IexecHubContract(contractAddress, web3j, credentials, contractGasProvider);
+    }
+
+    public static IexecHubContract load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return new IexecHubContract(contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
     public static class AppOrder extends DynamicStruct {
@@ -2181,7 +2043,7 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public AppOrder(String app, BigInteger appprice, BigInteger volume, byte[] tag, String datasetrestrict, String workerpoolrestrict, String requesterrestrict, byte[] salt, byte[] sign) {
-            super(new org.web3j.abi.datatypes.Address(app), new org.web3j.abi.datatypes.generated.Uint256(appprice), new org.web3j.abi.datatypes.generated.Uint256(volume), new org.web3j.abi.datatypes.generated.Bytes32(tag), new org.web3j.abi.datatypes.Address(datasetrestrict), new org.web3j.abi.datatypes.Address(workerpoolrestrict), new org.web3j.abi.datatypes.Address(requesterrestrict), new org.web3j.abi.datatypes.generated.Bytes32(salt), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(new org.web3j.abi.datatypes.Address(app),new org.web3j.abi.datatypes.generated.Uint256(appprice),new org.web3j.abi.datatypes.generated.Uint256(volume),new org.web3j.abi.datatypes.generated.Bytes32(tag),new org.web3j.abi.datatypes.Address(datasetrestrict),new org.web3j.abi.datatypes.Address(workerpoolrestrict),new org.web3j.abi.datatypes.Address(requesterrestrict),new org.web3j.abi.datatypes.generated.Bytes32(salt),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.app = app;
             this.appprice = appprice;
             this.volume = volume;
@@ -2194,7 +2056,7 @@ public class IexecHubContract extends Contract {
         }
 
         public AppOrder(Address app, Uint256 appprice, Uint256 volume, Bytes32 tag, Address datasetrestrict, Address workerpoolrestrict, Address requesterrestrict, Bytes32 salt, DynamicBytes sign) {
-            super(app, appprice, volume, tag, datasetrestrict, workerpoolrestrict, requesterrestrict, salt, sign);
+            super(app,appprice,volume,tag,datasetrestrict,workerpoolrestrict,requesterrestrict,salt,sign);
             this.app = app.getValue();
             this.appprice = appprice.getValue();
             this.volume = volume.getValue();
@@ -2227,7 +2089,7 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public DatasetOrder(String dataset, BigInteger datasetprice, BigInteger volume, byte[] tag, String apprestrict, String workerpoolrestrict, String requesterrestrict, byte[] salt, byte[] sign) {
-            super(new org.web3j.abi.datatypes.Address(dataset), new org.web3j.abi.datatypes.generated.Uint256(datasetprice), new org.web3j.abi.datatypes.generated.Uint256(volume), new org.web3j.abi.datatypes.generated.Bytes32(tag), new org.web3j.abi.datatypes.Address(apprestrict), new org.web3j.abi.datatypes.Address(workerpoolrestrict), new org.web3j.abi.datatypes.Address(requesterrestrict), new org.web3j.abi.datatypes.generated.Bytes32(salt), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(new org.web3j.abi.datatypes.Address(dataset),new org.web3j.abi.datatypes.generated.Uint256(datasetprice),new org.web3j.abi.datatypes.generated.Uint256(volume),new org.web3j.abi.datatypes.generated.Bytes32(tag),new org.web3j.abi.datatypes.Address(apprestrict),new org.web3j.abi.datatypes.Address(workerpoolrestrict),new org.web3j.abi.datatypes.Address(requesterrestrict),new org.web3j.abi.datatypes.generated.Bytes32(salt),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.dataset = dataset;
             this.datasetprice = datasetprice;
             this.volume = volume;
@@ -2240,7 +2102,7 @@ public class IexecHubContract extends Contract {
         }
 
         public DatasetOrder(Address dataset, Uint256 datasetprice, Uint256 volume, Bytes32 tag, Address apprestrict, Address workerpoolrestrict, Address requesterrestrict, Bytes32 salt, DynamicBytes sign) {
-            super(dataset, datasetprice, volume, tag, apprestrict, workerpoolrestrict, requesterrestrict, salt, sign);
+            super(dataset,datasetprice,volume,tag,apprestrict,workerpoolrestrict,requesterrestrict,salt,sign);
             this.dataset = dataset.getValue();
             this.datasetprice = datasetprice.getValue();
             this.volume = volume.getValue();
@@ -2287,7 +2149,7 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public RequestOrder(String app, BigInteger appmaxprice, String dataset, BigInteger datasetmaxprice, String workerpool, BigInteger workerpoolmaxprice, String requester, BigInteger volume, byte[] tag, BigInteger category, BigInteger trust, String beneficiary, String callback, String params, byte[] salt, byte[] sign) {
-            super(new org.web3j.abi.datatypes.Address(app), new org.web3j.abi.datatypes.generated.Uint256(appmaxprice), new org.web3j.abi.datatypes.Address(dataset), new org.web3j.abi.datatypes.generated.Uint256(datasetmaxprice), new org.web3j.abi.datatypes.Address(workerpool), new org.web3j.abi.datatypes.generated.Uint256(workerpoolmaxprice), new org.web3j.abi.datatypes.Address(requester), new org.web3j.abi.datatypes.generated.Uint256(volume), new org.web3j.abi.datatypes.generated.Bytes32(tag), new org.web3j.abi.datatypes.generated.Uint256(category), new org.web3j.abi.datatypes.generated.Uint256(trust), new org.web3j.abi.datatypes.Address(beneficiary), new org.web3j.abi.datatypes.Address(callback), new org.web3j.abi.datatypes.Utf8String(params), new org.web3j.abi.datatypes.generated.Bytes32(salt), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(new org.web3j.abi.datatypes.Address(app),new org.web3j.abi.datatypes.generated.Uint256(appmaxprice),new org.web3j.abi.datatypes.Address(dataset),new org.web3j.abi.datatypes.generated.Uint256(datasetmaxprice),new org.web3j.abi.datatypes.Address(workerpool),new org.web3j.abi.datatypes.generated.Uint256(workerpoolmaxprice),new org.web3j.abi.datatypes.Address(requester),new org.web3j.abi.datatypes.generated.Uint256(volume),new org.web3j.abi.datatypes.generated.Bytes32(tag),new org.web3j.abi.datatypes.generated.Uint256(category),new org.web3j.abi.datatypes.generated.Uint256(trust),new org.web3j.abi.datatypes.Address(beneficiary),new org.web3j.abi.datatypes.Address(callback),new org.web3j.abi.datatypes.Utf8String(params),new org.web3j.abi.datatypes.generated.Bytes32(salt),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.app = app;
             this.appmaxprice = appmaxprice;
             this.dataset = dataset;
@@ -2307,7 +2169,7 @@ public class IexecHubContract extends Contract {
         }
 
         public RequestOrder(Address app, Uint256 appmaxprice, Address dataset, Uint256 datasetmaxprice, Address workerpool, Uint256 workerpoolmaxprice, Address requester, Uint256 volume, Bytes32 tag, Uint256 category, Uint256 trust, Address beneficiary, Address callback, Utf8String params, Bytes32 salt, DynamicBytes sign) {
-            super(app, appmaxprice, dataset, datasetmaxprice, workerpool, workerpoolmaxprice, requester, volume, tag, category, trust, beneficiary, callback, params, salt, sign);
+            super(app,appmaxprice,dataset,datasetmaxprice,workerpool,workerpoolmaxprice,requester,volume,tag,category,trust,beneficiary,callback,params,salt,sign);
             this.app = app.getValue();
             this.appmaxprice = appmaxprice.getValue();
             this.dataset = dataset.getValue();
@@ -2351,7 +2213,7 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public WorkerpoolOrder(String workerpool, BigInteger workerpoolprice, BigInteger volume, byte[] tag, BigInteger category, BigInteger trust, String apprestrict, String datasetrestrict, String requesterrestrict, byte[] salt, byte[] sign) {
-            super(new org.web3j.abi.datatypes.Address(workerpool), new org.web3j.abi.datatypes.generated.Uint256(workerpoolprice), new org.web3j.abi.datatypes.generated.Uint256(volume), new org.web3j.abi.datatypes.generated.Bytes32(tag), new org.web3j.abi.datatypes.generated.Uint256(category), new org.web3j.abi.datatypes.generated.Uint256(trust), new org.web3j.abi.datatypes.Address(apprestrict), new org.web3j.abi.datatypes.Address(datasetrestrict), new org.web3j.abi.datatypes.Address(requesterrestrict), new org.web3j.abi.datatypes.generated.Bytes32(salt), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(new org.web3j.abi.datatypes.Address(workerpool),new org.web3j.abi.datatypes.generated.Uint256(workerpoolprice),new org.web3j.abi.datatypes.generated.Uint256(volume),new org.web3j.abi.datatypes.generated.Bytes32(tag),new org.web3j.abi.datatypes.generated.Uint256(category),new org.web3j.abi.datatypes.generated.Uint256(trust),new org.web3j.abi.datatypes.Address(apprestrict),new org.web3j.abi.datatypes.Address(datasetrestrict),new org.web3j.abi.datatypes.Address(requesterrestrict),new org.web3j.abi.datatypes.generated.Bytes32(salt),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.workerpool = workerpool;
             this.workerpoolprice = workerpoolprice;
             this.volume = volume;
@@ -2366,7 +2228,7 @@ public class IexecHubContract extends Contract {
         }
 
         public WorkerpoolOrder(Address workerpool, Uint256 workerpoolprice, Uint256 volume, Bytes32 tag, Uint256 category, Uint256 trust, Address apprestrict, Address datasetrestrict, Address requesterrestrict, Bytes32 salt, DynamicBytes sign) {
-            super(workerpool, workerpoolprice, volume, tag, category, trust, apprestrict, datasetrestrict, requesterrestrict, salt, sign);
+            super(workerpool,workerpoolprice,volume,tag,category,trust,apprestrict,datasetrestrict,requesterrestrict,salt,sign);
             this.workerpool = workerpool.getValue();
             this.workerpoolprice = workerpoolprice.getValue();
             this.volume = volume.getValue();
@@ -2391,7 +2253,7 @@ public class IexecHubContract extends Contract {
         public String verifyingContract;
 
         public EIP712Domain(String name, String version, BigInteger chainId, String verifyingContract) {
-            super(new org.web3j.abi.datatypes.Utf8String(name), new org.web3j.abi.datatypes.Utf8String(version), new org.web3j.abi.datatypes.generated.Uint256(chainId), new org.web3j.abi.datatypes.Address(verifyingContract));
+            super(new org.web3j.abi.datatypes.Utf8String(name),new org.web3j.abi.datatypes.Utf8String(version),new org.web3j.abi.datatypes.generated.Uint256(chainId),new org.web3j.abi.datatypes.Address(verifyingContract));
             this.name = name;
             this.version = version;
             this.chainId = chainId;
@@ -2399,7 +2261,7 @@ public class IexecHubContract extends Contract {
         }
 
         public EIP712Domain(Utf8String name, Utf8String version, Uint256 chainId, Address verifyingContract) {
-            super(name, version, chainId, verifyingContract);
+            super(name,version,chainId,verifyingContract);
             this.name = name.getValue();
             this.version = version.getValue();
             this.chainId = chainId.getValue();
@@ -2413,13 +2275,13 @@ public class IexecHubContract extends Contract {
         public BigInteger locked;
 
         public Account(BigInteger stake, BigInteger locked) {
-            super(new org.web3j.abi.datatypes.generated.Uint256(stake), new org.web3j.abi.datatypes.generated.Uint256(locked));
+            super(new org.web3j.abi.datatypes.generated.Uint256(stake),new org.web3j.abi.datatypes.generated.Uint256(locked));
             this.stake = stake;
             this.locked = locked;
         }
 
         public Account(Uint256 stake, Uint256 locked) {
-            super(stake, locked);
+            super(stake,locked);
             this.stake = stake.getValue();
             this.locked = locked.getValue();
         }
@@ -2433,14 +2295,14 @@ public class IexecHubContract extends Contract {
         public BigInteger workClockTimeRef;
 
         public Category(String name, String description, BigInteger workClockTimeRef) {
-            super(new org.web3j.abi.datatypes.Utf8String(name), new org.web3j.abi.datatypes.Utf8String(description), new org.web3j.abi.datatypes.generated.Uint256(workClockTimeRef));
+            super(new org.web3j.abi.datatypes.Utf8String(name),new org.web3j.abi.datatypes.Utf8String(description),new org.web3j.abi.datatypes.generated.Uint256(workClockTimeRef));
             this.name = name;
             this.description = description;
             this.workClockTimeRef = workClockTimeRef;
         }
 
         public Category(Utf8String name, Utf8String description, Uint256 workClockTimeRef) {
-            super(name, description, workClockTimeRef);
+            super(name,description,workClockTimeRef);
             this.name = name.getValue();
             this.description = description.getValue();
             this.workClockTimeRef = workClockTimeRef.getValue();
@@ -2459,7 +2321,7 @@ public class IexecHubContract extends Contract {
         public BigInteger weight;
 
         public Contribution(BigInteger status, byte[] resultHash, byte[] resultSeal, String enclaveChallenge, BigInteger weight) {
-            super(new org.web3j.abi.datatypes.generated.Uint8(status), new org.web3j.abi.datatypes.generated.Bytes32(resultHash), new org.web3j.abi.datatypes.generated.Bytes32(resultSeal), new org.web3j.abi.datatypes.Address(enclaveChallenge), new org.web3j.abi.datatypes.generated.Uint256(weight));
+            super(new org.web3j.abi.datatypes.generated.Uint8(status),new org.web3j.abi.datatypes.generated.Bytes32(resultHash),new org.web3j.abi.datatypes.generated.Bytes32(resultSeal),new org.web3j.abi.datatypes.Address(enclaveChallenge),new org.web3j.abi.datatypes.generated.Uint256(weight));
             this.status = status;
             this.resultHash = resultHash;
             this.resultSeal = resultSeal;
@@ -2468,7 +2330,7 @@ public class IexecHubContract extends Contract {
         }
 
         public Contribution(Uint8 status, Bytes32 resultHash, Bytes32 resultSeal, Address enclaveChallenge, Uint256 weight) {
-            super(status, resultHash, resultSeal, enclaveChallenge, weight);
+            super(status,resultHash,resultSeal,enclaveChallenge,weight);
             this.status = status.getValue();
             this.resultHash = resultHash.getValue();
             this.resultSeal = resultSeal.getValue();
@@ -2485,14 +2347,14 @@ public class IexecHubContract extends Contract {
         public BigInteger price;
 
         public Resource(String pointer, String owner, BigInteger price) {
-            super(new org.web3j.abi.datatypes.Address(pointer), new org.web3j.abi.datatypes.Address(owner), new org.web3j.abi.datatypes.generated.Uint256(price));
+            super(new org.web3j.abi.datatypes.Address(pointer),new org.web3j.abi.datatypes.Address(owner),new org.web3j.abi.datatypes.generated.Uint256(price));
             this.pointer = pointer;
             this.owner = owner;
             this.price = price;
         }
 
         public Resource(Address pointer, Address owner, Uint256 price) {
-            super(pointer, owner, price);
+            super(pointer,owner,price);
             this.pointer = pointer.getValue();
             this.owner = owner.getValue();
             this.price = price.getValue();
@@ -2531,9 +2393,7 @@ public class IexecHubContract extends Contract {
         public byte[] resultsCallback;
 
         public Task(BigInteger status, byte[] dealid, BigInteger idx, BigInteger timeref, BigInteger contributionDeadline, BigInteger revealDeadline, BigInteger finalDeadline, byte[] consensusValue, BigInteger revealCounter, BigInteger winnerCounter, List<String> contributors, byte[] resultDigest, byte[] results, BigInteger resultsTimestamp, byte[] resultsCallback) {
-            super(new org.web3j.abi.datatypes.generated.Uint8(status), new org.web3j.abi.datatypes.generated.Bytes32(dealid), new org.web3j.abi.datatypes.generated.Uint256(idx), new org.web3j.abi.datatypes.generated.Uint256(timeref), new org.web3j.abi.datatypes.generated.Uint256(contributionDeadline), new org.web3j.abi.datatypes.generated.Uint256(revealDeadline), new org.web3j.abi.datatypes.generated.Uint256(finalDeadline), new org.web3j.abi.datatypes.generated.Bytes32(consensusValue), new org.web3j.abi.datatypes.generated.Uint256(revealCounter), new org.web3j.abi.datatypes.generated.Uint256(winnerCounter),
-                    fromListString2DynamicArrayAddress(contributors),
-                    new org.web3j.abi.datatypes.generated.Bytes32(resultDigest), new org.web3j.abi.datatypes.DynamicBytes(results), new org.web3j.abi.datatypes.generated.Uint256(resultsTimestamp), new org.web3j.abi.datatypes.DynamicBytes(resultsCallback));
+            super(new org.web3j.abi.datatypes.generated.Uint8(status),new org.web3j.abi.datatypes.generated.Bytes32(dealid),new org.web3j.abi.datatypes.generated.Uint256(idx),new org.web3j.abi.datatypes.generated.Uint256(timeref),new org.web3j.abi.datatypes.generated.Uint256(contributionDeadline),new org.web3j.abi.datatypes.generated.Uint256(revealDeadline),new org.web3j.abi.datatypes.generated.Uint256(finalDeadline),new org.web3j.abi.datatypes.generated.Bytes32(consensusValue),new org.web3j.abi.datatypes.generated.Uint256(revealCounter),new org.web3j.abi.datatypes.generated.Uint256(winnerCounter),new org.web3j.abi.datatypes.DynamicArray<org.web3j.abi.datatypes.Address>(ChainUtils.fromString2Address(contributors)),new org.web3j.abi.datatypes.generated.Bytes32(resultDigest),new org.web3j.abi.datatypes.DynamicBytes(results),new org.web3j.abi.datatypes.generated.Uint256(resultsTimestamp),new org.web3j.abi.datatypes.DynamicBytes(resultsCallback));
             this.status = status;
             this.dealid = dealid;
             this.idx = idx;
@@ -2552,7 +2412,7 @@ public class IexecHubContract extends Contract {
         }
 
         public Task(Uint8 status, Bytes32 dealid, Uint256 idx, Uint256 timeref, Uint256 contributionDeadline, Uint256 revealDeadline, Uint256 finalDeadline, Bytes32 consensusValue, Uint256 revealCounter, Uint256 winnerCounter, DynamicArray<Address> contributors, Bytes32 resultDigest, DynamicBytes results, Uint256 resultsTimestamp, DynamicBytes resultsCallback) {
-            super(status, dealid, idx, timeref, contributionDeadline, revealDeadline, finalDeadline, consensusValue, revealCounter, winnerCounter, contributors, resultDigest, results, resultsTimestamp, resultsCallback);
+            super(status,dealid,idx,timeref,contributionDeadline,revealDeadline,finalDeadline,consensusValue,revealCounter,winnerCounter,contributors,resultDigest,results,resultsTimestamp,resultsCallback);
             this.status = status.getValue();
             this.dealid = dealid.getValue();
             this.idx = idx.getValue();
@@ -2563,7 +2423,7 @@ public class IexecHubContract extends Contract {
             this.consensusValue = consensusValue.getValue();
             this.revealCounter = revealCounter.getValue();
             this.winnerCounter = winnerCounter.getValue();
-            this.contributors = fromListAddress2ListString(contributors.getValue());
+            this.contributors = ChainUtils.fromAddress2String(contributors.getValue());
             this.resultDigest = resultDigest.getValue();
             this.results = results.getValue();
             this.resultsTimestamp = resultsTimestamp.getValue();
@@ -2579,14 +2439,14 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public AppOrderOperation(AppOrder order, BigInteger operation, byte[] sign) {
-            super(order, new org.web3j.abi.datatypes.generated.Uint8(operation), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(order,new org.web3j.abi.datatypes.generated.Uint8(operation),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.order = order;
             this.operation = operation;
             this.sign = sign;
         }
 
         public AppOrderOperation(AppOrder order, Uint8 operation, DynamicBytes sign) {
-            super(order, operation, sign);
+            super(order,operation,sign);
             this.order = order;
             this.operation = operation.getValue();
             this.sign = sign.getValue();
@@ -2601,14 +2461,14 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public DatasetOrderOperation(DatasetOrder order, BigInteger operation, byte[] sign) {
-            super(order, new org.web3j.abi.datatypes.generated.Uint8(operation), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(order,new org.web3j.abi.datatypes.generated.Uint8(operation),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.order = order;
             this.operation = operation;
             this.sign = sign;
         }
 
         public DatasetOrderOperation(DatasetOrder order, Uint8 operation, DynamicBytes sign) {
-            super(order, operation, sign);
+            super(order,operation,sign);
             this.order = order;
             this.operation = operation.getValue();
             this.sign = sign.getValue();
@@ -2623,14 +2483,14 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public RequestOrderOperation(RequestOrder order, BigInteger operation, byte[] sign) {
-            super(order, new org.web3j.abi.datatypes.generated.Uint8(operation), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(order,new org.web3j.abi.datatypes.generated.Uint8(operation),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.order = order;
             this.operation = operation;
             this.sign = sign;
         }
 
         public RequestOrderOperation(RequestOrder order, Uint8 operation, DynamicBytes sign) {
-            super(order, operation, sign);
+            super(order,operation,sign);
             this.order = order;
             this.operation = operation.getValue();
             this.sign = sign.getValue();
@@ -2645,14 +2505,14 @@ public class IexecHubContract extends Contract {
         public byte[] sign;
 
         public WorkerpoolOrderOperation(WorkerpoolOrder order, BigInteger operation, byte[] sign) {
-            super(order, new org.web3j.abi.datatypes.generated.Uint8(operation), new org.web3j.abi.datatypes.DynamicBytes(sign));
+            super(order,new org.web3j.abi.datatypes.generated.Uint8(operation),new org.web3j.abi.datatypes.DynamicBytes(sign));
             this.order = order;
             this.operation = operation;
             this.sign = sign;
         }
 
         public WorkerpoolOrderOperation(WorkerpoolOrder order, Uint8 operation, DynamicBytes sign) {
-            super(order, operation, sign);
+            super(order,operation,sign);
             this.order = order;
             this.operation = operation.getValue();
             this.sign = sign.getValue();
@@ -2691,7 +2551,7 @@ public class IexecHubContract extends Contract {
         public BigInteger schedulerRewardRatio;
 
         public Deal(Resource app, Resource dataset, Resource workerpool, BigInteger trust, BigInteger category, byte[] tag, String requester, String beneficiary, String callback, String params, BigInteger startTime, BigInteger botFirst, BigInteger botSize, BigInteger workerStake, BigInteger schedulerRewardRatio) {
-            super(app, dataset, workerpool, new org.web3j.abi.datatypes.generated.Uint256(trust), new org.web3j.abi.datatypes.generated.Uint256(category), new org.web3j.abi.datatypes.generated.Bytes32(tag), new org.web3j.abi.datatypes.Address(requester), new org.web3j.abi.datatypes.Address(beneficiary), new org.web3j.abi.datatypes.Address(callback), new org.web3j.abi.datatypes.Utf8String(params), new org.web3j.abi.datatypes.generated.Uint256(startTime), new org.web3j.abi.datatypes.generated.Uint256(botFirst), new org.web3j.abi.datatypes.generated.Uint256(botSize), new org.web3j.abi.datatypes.generated.Uint256(workerStake), new org.web3j.abi.datatypes.generated.Uint256(schedulerRewardRatio));
+            super(app,dataset,workerpool,new org.web3j.abi.datatypes.generated.Uint256(trust),new org.web3j.abi.datatypes.generated.Uint256(category),new org.web3j.abi.datatypes.generated.Bytes32(tag),new org.web3j.abi.datatypes.Address(requester),new org.web3j.abi.datatypes.Address(beneficiary),new org.web3j.abi.datatypes.Address(callback),new org.web3j.abi.datatypes.Utf8String(params),new org.web3j.abi.datatypes.generated.Uint256(startTime),new org.web3j.abi.datatypes.generated.Uint256(botFirst),new org.web3j.abi.datatypes.generated.Uint256(botSize),new org.web3j.abi.datatypes.generated.Uint256(workerStake),new org.web3j.abi.datatypes.generated.Uint256(schedulerRewardRatio));
             this.app = app;
             this.dataset = dataset;
             this.workerpool = workerpool;
@@ -2710,7 +2570,7 @@ public class IexecHubContract extends Contract {
         }
 
         public Deal(Resource app, Resource dataset, Resource workerpool, Uint256 trust, Uint256 category, Bytes32 tag, Address requester, Address beneficiary, Address callback, Utf8String params, Uint256 startTime, Uint256 botFirst, Uint256 botSize, Uint256 workerStake, Uint256 schedulerRewardRatio) {
-            super(app, dataset, workerpool, trust, category, tag, requester, beneficiary, callback, params, startTime, botFirst, botSize, workerStake, schedulerRewardRatio);
+            super(app,dataset,workerpool,trust,category,tag,requester,beneficiary,callback,params,startTime,botFirst,botSize,workerStake,schedulerRewardRatio);
             this.app = app;
             this.dataset = dataset;
             this.workerpool = workerpool;

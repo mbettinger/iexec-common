@@ -84,18 +84,30 @@ public class ChainUtils {
         return builder.build();
     }
 
-    public static DynamicArray<Address> fromListString2DynamicArrayAddress(List<String> contributors) {
-        return new DynamicArray<Address>(
-                Address.class,
-                org.web3j.abi.Utils.typeMap(contributors, Address.class));
+    public static List<String> fromAddress2String(List<Address> fromList) {
+        List<String> toList = new ArrayList<>();
+
+        if (fromList == null){
+            return toList;
+        }
+
+        for (Address from: fromList){
+            toList.add(from.getValue());
+        }
+        return toList;
     }
 
-    public static List<String> fromListAddress2ListString(List<Address> addresses) {
-        List<String> strings = new ArrayList<>();
-        for (Address address: addresses){
-            strings.add(address.getValue());
+    public static List<Address> fromString2Address(List<String> fromList) {
+        List<Address> toList = new ArrayList<>();
+
+        if (fromList == null){
+            return toList;
         }
-        return strings;
+
+        for (String from: fromList){
+            toList.add(new Address(from));
+        }
+        return toList;
     }
 
 }
