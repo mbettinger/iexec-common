@@ -58,6 +58,14 @@ public class TaskDescription {
     private String teePostComputeImage;
     private String teePostComputeFingerprint;
 
+    public String getStandardDatasetFilename() {
+        return this.datasetName;
+    }
+
+    public String getTeeDatasetFilename() {
+        return this.datasetName + ".enc";
+    }
+
     public static TaskDescription toTaskDescription(String chainTaskId,
                                                     int taskIdx,
                                                     ChainDeal chainDeal) {
