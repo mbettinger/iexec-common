@@ -19,6 +19,7 @@ package com.iexec.common.chain;
 import com.iexec.common.utils.BytesUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.bouncycastle.util.Arrays;
+import org.web3j.abi.datatypes.Address;
 import org.web3j.crypto.Hash;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.utils.Convert;
@@ -26,6 +27,8 @@ import org.web3j.utils.Numeric;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class ChainUtils {
@@ -79,5 +82,32 @@ public class ChainUtils {
 
         return builder.build();
     }
+
+    public static List<String> fromAddress2String(List<Address> fromList) {
+        List<String> toList = new ArrayList<>();
+
+        if (fromList == null){
+            return toList;
+        }
+
+        for (Address from: fromList){
+            toList.add(from.getValue());
+        }
+        return toList;
+    }
+
+    public static List<Address> fromString2Address(List<String> fromList) {
+        List<Address> toList = new ArrayList<>();
+
+        if (fromList == null){
+            return toList;
+        }
+
+        for (String from: fromList){
+            toList.add(new Address(from));
+        }
+        return toList;
+    }
+
 
 }

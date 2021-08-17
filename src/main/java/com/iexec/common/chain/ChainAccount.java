@@ -16,11 +16,11 @@
 
 package com.iexec.common.chain;
 
+import com.iexec.common.contract.generated.IexecHubContract;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.web3j.tuples.generated.Tuple2;
 
 import java.math.BigInteger;
 
@@ -38,9 +38,9 @@ public class ChainAccount {
         this.setLocked(locked.longValue());
     }
 
-    public static ChainAccount tuple2Account(Tuple2<BigInteger, BigInteger> account) {
+    public static ChainAccount tuple2Account(IexecHubContract.Account account) {
         if (account != null) {
-            return new ChainAccount(account.component1(), account.component2());
+            return new ChainAccount(account.stake, account.locked);
         }
         return null;
     }

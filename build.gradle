@@ -26,7 +26,7 @@ configurations {
 
 dependencies {
     // web3j dependency
-    compile "org.web3j:core:4.7.0"
+    compile "org.web3j:core:4.8.7"
     
     // apache commons.lang3
     compile "org.apache.commons:commons-lang3:3.9"

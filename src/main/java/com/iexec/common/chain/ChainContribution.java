@@ -16,6 +16,7 @@
 
 package com.iexec.common.chain;
 
+import com.iexec.common.contract.generated.IexecHubContract;
 import com.iexec.common.utils.BytesUtils;
 import lombok.*;
 import org.web3j.tuples.generated.Tuple4;
@@ -41,12 +42,12 @@ public class ChainContribution {
         this.setEnclaveChallenge(enclaveChallenge);
     }
 
-    public static ChainContribution tuple2Contribution(Tuple4<BigInteger, byte[], byte[], String> contribution) {
+    public static ChainContribution tuple2Contribution(IexecHubContract.Contribution contribution) {
         if (contribution != null) {
-            return new ChainContribution(contribution.component1(),
-                    contribution.component2(),
-                    contribution.component3(),
-                    contribution.component4());
+            return new ChainContribution(contribution.status,
+                    contribution.resultHash,
+                    contribution.resultSeal,
+                    contribution.enclaveChallenge);
         }
         return null;
     }

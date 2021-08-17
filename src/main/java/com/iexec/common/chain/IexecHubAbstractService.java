@@ -50,6 +50,7 @@ import java.util.function.BiFunction;
 
 import static com.iexec.common.chain.ChainContributionStatus.CONTRIBUTED;
 import static com.iexec.common.chain.ChainContributionStatus.REVEALED;
+import static com.iexec.common.chain.ChainDeal.stringToDealParams;
 import static com.iexec.common.contract.generated.IexecHubContract.*;
 import static com.iexec.common.tee.TeeEnclaveConfiguration.buildEnclaveConfigurationFromJsonString;
 
@@ -375,17 +376,17 @@ public abstract class IexecHubAbstractService {
 
         byte[] chainDealIdBytes = BytesUtils.stringToBytes(chainDealId);
         try {
-            Tuple9<String, String, BigInteger, String, String, BigInteger, String, String, BigInteger> dealPt1 =
-                    iexecHub.viewDealABILegacy_pt1(chainDealIdBytes).send();
-            Tuple6<BigInteger, byte[], String, String, String, String> dealPt2 =
-                    iexecHub.viewDealABILegacy_pt2(chainDealIdBytes).send();
-            Tuple6<BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger> config =
-                    iexecHub.viewConfigABILegacy(chainDealIdBytes).send();
+            System.out.println("-----------");
+            System.out.println(chainDealId);
+            Deal deal =
+                    iexecHub.viewDeal(chainDealIdBytes).send();
 
+            System.out.println("************");
 
-            String appAddress = dealPt1.component1();
-            String datasetAddress = dealPt1.component4();
-            BigInteger categoryId = config.component1();
+            String appAddress = deal.app.pointer;
+            System.out.println(appAddress);
+            String datasetAddress = deal.dataset.pointer;
+            BigInteger categoryId = deal.category;
 
             Optional<ChainApp> chainApp = getChainApp(getAppContract(appAddress));
             if (chainApp.isEmpty()) {
@@ -401,7 +402,30 @@ public abstract class IexecHubAbstractService {
                     getChainDataset(getDatasetContract(datasetAddress));
             ChainDataset dataset = chainDataset.orElse(null);
 
-            ChainDeal chainDeal = ChainDeal.parts2ChainDeal(chainDealId, dealPt1, dealPt2, config, app, category, dataset);
+            ChainDeal chainDeal = ChainDeal.builder()
+                    .chainDealId(chainDealId)
+                    .chainApp(chainApp.get())
+                    .dappOwner(deal.app.owner)
+                    .dappPrice(deal.app.price)
+                    .chainDataset(chainDataset.orElse(null))
+                    .dataOwner(deal.dataset.owner)
+                    .dataPrice(deal.dataset.price)
+                    .poolPointer(deal.workerpool.pointer)
+                    .poolOwner(deal.workerpool.owner)
+                    .poolPrice(deal.workerpool.price)
+                    .trust(deal.trust)
+                    .tag(BytesUtils.bytesToString(deal.tag))
+                    .requester(deal.requester)
+                    .beneficiary(deal.beneficiary)
+                    .callback(deal.callback)
+                    .params(stringToDealParams(deal.params))
+                    .chainCategory(chainCategory.get())
+                    .startTime(deal.startTime)
+                    .botFirst(deal.botFirst)
+                    .botSize(deal.botSize)
+                    .workerStake(deal.workerStake)
+                    .schedulerRewardRatio(deal.schedulerRewardRatio)
+                    .build();
 
             if (chainDeal.getStartTime() == null
                     || chainDeal.getStartTime().longValue() <= 0) {
@@ -420,7 +444,7 @@ public abstract class IexecHubAbstractService {
     public Optional<ChainTask> getChainTask(String chainTaskId) {
         try {
             return Optional.of(ChainTask.tuple2ChainTask(getHubContract()
-                    .viewTaskABILegacy(BytesUtils.stringToBytes(chainTaskId)).send()));
+                    .viewTask(BytesUtils.stringToBytes(chainTaskId)).send()));
         } catch (Exception e) {
             log.error("Failed to get ChainTask [chainTaskId:{}]", chainTaskId, e);
         }
@@ -430,7 +454,7 @@ public abstract class IexecHubAbstractService {
     public Optional<ChainAccount> getChainAccount(String walletAddress) {
         try {
             return Optional.of(ChainAccount.tuple2Account(getHubContract(new DefaultGasProvider())
-                    .viewAccountABILegacy(walletAddress).send()));
+                    .viewAccount(walletAddress).send()));
         } catch (Exception e) {
             log.error("Failed to get ChainAccount [walletAddress:{}]", walletAddress, e);
         }
@@ -441,7 +465,7 @@ public abstract class IexecHubAbstractService {
                                                             String workerAddress) {
         try {
             return Optional.of(ChainContribution.tuple2Contribution(getHubContract()
-                    .viewContributionABILegacy(BytesUtils
+                    .viewContribution(BytesUtils
                             .stringToBytes(chainTaskId), workerAddress).send()));
         } catch (Exception e) {
             log.error("Failed to get ChainContribution [chainTaskId:{}" +
@@ -463,13 +487,7 @@ public abstract class IexecHubAbstractService {
      */
     public Optional<ChainCategory> getChainCategory(long id) {
         try {
-            Tuple3<String, String, BigInteger> category = getHubContract()
-                    .viewCategoryABILegacy(BigInteger.valueOf(id)).send();
-            ChainCategory chainCategory = ChainCategory.tuple2ChainCategory(id,
-                    category.component1(),
-                    category.component2(),
-                    category.component3()
-            );
+            ChainCategory chainCategory = ChainCategory.tuple2ChainCategory(id, getHubContract().viewCategory(BigInteger.valueOf(id)).send());
             if (chainCategory.getMaxExecutionTime() <= 0) {
                 log.error("Category max execution time should be greater than zero " +
                         "(likely a blockchain issue) [categoryId:{}, maxExecutionTime:{}]",
